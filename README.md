@@ -26,7 +26,7 @@ Preview
 
 /////////// Pagina de Login ////////////////
 
-[#### Image 0 ##########](https://github.com/thenoise2000/tareas/blob/main/docs/Login.jpg)
+https://github.com/thenoise2000/tareas/blob/main/docs/Login.jpg
 
 Admin app
 
