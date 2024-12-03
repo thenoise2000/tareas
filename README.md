@@ -38,6 +38,8 @@ Admin app
 
 ///////////// Flujo de ejecucion //////////////////
 
+![image alt](https://github.com/thenoise2000/tareas/blob/main/docs/worker.jpg?raw=true)
+
 Pasos para configurar y ejecutar
 
 # 1 - Crea el entorno virtual:
