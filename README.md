@@ -30,7 +30,7 @@ Preview
 
 Admin app
 
-#### Image 1 ########
+![image alt](https://github.com/thenoise2000/tareas/blob/main/docs/panel.jpg?raw=true)
 
 /////////// Como funciona /////////////////////
 
