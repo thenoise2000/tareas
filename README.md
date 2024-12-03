@@ -34,8 +34,9 @@ Admin app
 
 /////////// Como funciona /////////////////////
 
-#### Image 2 ##################
+![image alt](https://github.com/thenoise2000/tareas/blob/main/docs/redis.png?raw=true)
 
+///////////// Flujo de ejecucion //////////////////
 
 Pasos para configurar y ejecutar
 
