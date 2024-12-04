@@ -1,0 +1,41 @@
+{% extends 'tareas.html' %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="card mx-auto" style="width: 25rem;">
+        <div class="card-body form" style="background-color: #9295a1;">
+            <h2 class="card-title text-white text-center">Ingrese sus Datos</h2>
+
+            <form action="" method="post" novalidate>
+                {% csrf_token %}
+
+                {% if form.non_field_errors %}
+                    {% for er in form.non_field_errors %}
+                        <p class="text-danger">{{ er }}</p>
+                    {% endfor %}
+                {% endif %}
+
+                {% for fm in form %}
+                <!--{{form|crispy}}--> 
+                    <div class="mb-3">
+                        {{ fm.label_tag }}
+                        {{ fm }}
+                        <p class="text-danger">{{ fm.errors|striptags }}</p>
+                    </div>
+                {% endfor %}
+                <input type="checkbox" onclick="showPassword()"> <Strong>Ver Clave</Strong>
+                <div class="text-center">
+                    <button class="btn btn-primary" type="submit">Submit</button>
+                </div>
+            </form>
+
+            <div class="text-center mt-3">
+                <small class="fw-bold">Tienes Cuenta? <a href="{% url 'login' %}">Log in</a></small>
+            </div>
+        </div>
+    </div>
+</div>
+<div style="margin: 100px">
+</div>
+{% endblock %}

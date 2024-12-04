@@ -1,0 +1,39 @@
+{% extends 'tareas.html' %}
+{% load crispy_forms_tags %}
+{% load static %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="card mx-auto" style="width: 30rem;">
+        <div class="card" style="background-color: #586277;">
+            <h1 class="card-title text-white text-center">Modificar Tarea</h1>
+
+            <form action="" method="post" novalidate enctype="multipart/form-data">
+                {% csrf_token %}
+
+                {% if form.non_field_errors %}
+                    {% for er in form.non_field_errors %}
+                        <p class="text-danger">{{ er }}</p>
+                    {% endfor %}
+                {% endif %}
+
+                {% for fm in form %}                
+                    <div class="text-white mb-3">
+                        {{ fm.label_tag }}
+                        {{ fm }}
+                        <p class="text-danger">{{ fm.errors|striptags }}</p>
+                    </div>
+                {% endfor %}
+                 
+                <div class="text-center">
+                    <a href="{% url 'task-details' task.pk %}" class="btn-delete btn-sm">Cancelar</a>
+                    <button class="btn-task btn-sm" type="update">Enviar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<div style="margin: 100px">
+</div>
+{% endblock %}
+

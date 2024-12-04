@@ -1,0 +1,74 @@
+{% extends "tareas.html" %}
+{% load static %}
+
+{% block content %}
+  {% if messages %}
+    {% for m in messages %}
+      <div class="alert alert-{{ m.tags }}">{{ m }}</div>
+    {% endfor %}
+  {% endif %}
+
+  {% if user.is_authenticated %}
+    {% if tasks %}
+      <div class="container mt-5">
+        <h1 class="text-center text-warning">Lista de Tareas</h1>
+
+        <ul class="list-group">
+          {% for task in page_obj.object_list %}
+          <li class="list-group-item">
+            <div class="d-flex justify-content-between align-items-center">
+              <div class="me-3"> <!-- Añadido margen a la derecha -->
+                <strong>Título:</strong> {{ task.title }}<br>
+                <strong>Descripción:</strong> {{ task.description }}<br>
+                <strong>Email:</strong> {{ task.email }}<br>
+                <strong>Fecha límite:</strong> {{ task.expiration_date }}
+              </div>
+              <div class="text-end"> <!-- Alineación a la derecha -->
+                <span class="badge {% if task.task_done %}bg-success{% else %}bg-danger{% endif %}">
+                  {% if task.task_done %}Completada{% else %}Pendiente{% endif %}
+                </span>
+                <div class="mt-2"> <!-- Espaciado superior para los botones -->
+                  <a href="{% url 'update-task' task.id %}" class="btn-edit btn-sm">Editar</a>
+                  <a href="{% url 'confirm-delete-task' task.id %}" class="btn-delete btn-sm">Eliminar</a>
+                </div>
+              </div>
+            </div>
+          </li><br/>
+          {% endfor %}
+        </ul>
+        <br/>
+        <nav aria-label="Page navigation">
+            <ul class="pagination justify-content-center">
+              {% if page_obj.has_previous %}
+                <li class="page-item">
+                  <a class="page-link" href="?page=1">Primera</a>
+                </li>
+                <li class="page-item">
+                  <a class="page-link" href="?page={{ page_obj.previous_page_number }}">Anterior</a>
+                </li>
+              {% endif %}
+              {% for num in page_obj.paginator.page_range %}
+                {% if page_obj.number == num %}
+                  <li class="page-item active"><span class="page-link">{{ num }}</span></li>
+                {% else %}
+                  <li class="page-item"><a class="page-link" href="?page={{ num }}">{{ num }}</a></li>
+                {% endif %}
+              {% endfor %}
+              {% if page_obj.has_next %}
+                <li class="page-item">
+                  <a class="page-link" href="?page={{ page_obj.next_page_number }}">Siguiente</a>
+                </li>
+                <li class="page-item">
+                  <a class="page-link" href="?page={{ page_obj.paginator.num_pages }}">Última</a>
+                </li>
+              {% endif %}
+            </ul>
+          </nav>
+      </div>
+    {% else %}
+      <p>No hay tareas.</p>
+    {% endif %}
+  {% else %}
+    <p>Debes iniciar sesión para ver tus tareas.</p>
+  {% endif %}
+{% endblock content %}

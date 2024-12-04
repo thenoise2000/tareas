@@ -1,0 +1,45 @@
+/* Estilos generales */
+body {
+  background-color: #1a63cf; /* Fondo oscuro */
+  color: #ffffff; /* Color de texto */
+  font-family: 'Arial', sans-serif;
+}
+
+.card {
+  background-color: #2022c4; /* Color de fondo de las tarjetas */
+  border: none; /* Sin borde */
+  border-radius: 12px; /* Bordes redondeados */
+  transition: transform 0.3s, box-shadow 0.3s; /* Efecto de animación */
+}
+
+.card:hover {
+  transform: translateY(-5px); /* Efecto de elevación */
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2); /* Sombra más pronunciada */
+}
+
+.form-control {
+  background-color: #3a71e7; /* Color de fondo del formulario */
+  border: 1px solid #4b4c5a; /* Borde del formulario */
+  color: #ffffff; /* Color de texto del formulario */
+  border-radius: 8px; /* Bordes redondeados */
+  transition: border-color 0.3s, background-color 0.3s; /* Transiciones suaves */
+}
+
+.form-control:focus {
+  background-color: #3a3b4c; /* Color de fondo al enfocar el formulario */
+  border-color: #ffcc00; /* Color del borde al enfocar */
+  box-shadow: 0 0 5px rgba(255, 204, 0, 0.5); /* Sombra al enfocar */
+}
+
+.btn {
+  background-color: #4cee2c; /* Color de fondo de los botones */
+  color: #ffffff; /* Color de texto de los botones */
+  border-radius: 8px; /* Bordes redondeados */
+  padding: 10px 20px; /* Tamaño del botón */
+  transition: background-color 0.3s, transform 0.3s; /* Transiciones suaves */
+}
+
+.btn:hover {
+  background-color: #4a1ee9; /* Color de fondo al pasar el ratón por encima */
+  transform: scale(1.05); /* Efecto de escala al pasar el ratón */
+}

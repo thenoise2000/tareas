@@ -1,0 +1,32 @@
+{% extends "tareas.html" %}
+{% load static %}
+
+{% block content %}
+
+  {% if messages %}
+  {% for m in messages %}
+      <div {% if m.tags %} class="{{m.tags}}" {% endif %}><small >{{m}}</small></div>
+  {% endfor %}
+  {% endif %}
+  
+  <div class="container mt-5">
+    <h1>Title: {{ task.title }}</h1>
+    <p>Description: {{ task.description }}</p>    
+    <p>Email: {{ task.email }}</p>  
+    <p>Expiration Date: {{ task.expiration_date }}</p>
+    {% if task.task_done %}
+      <p>Status: <span class="badge bg-success text-light">Done</span></p>
+    {% else %}
+      <p>Status: <span class="badge bg-danger text-dark">Pending</span></p>
+    {% endif %}
+    <p>Create Date: {{ task.created_date }}</p>
+
+    
+    <div class="row">
+      
+    </div>
+    <a href="{% url 'update-task' task.id %}" class="btn btn-warning btn-sm">Update Task</a>
+  </div>
+  <div style="margin: 130px"></div>
+
+{% endblock %}

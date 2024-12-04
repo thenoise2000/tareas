@@ -1,0 +1,37 @@
+{% extends 'tareas.html' %}
+{% load crispy_forms_tags %}
+{% load static %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="card mx-auto" style="width: 30rem;">
+        <div class="card" style="background-color: #586277;">
+            <h2 class="card-title text-white text-center">Nueva Tarea</h2>
+
+            <form action="" method="post" novalidate enctype="multipart/form-data">
+                {% csrf_token %}
+
+                {% if form.non_field_errors %}
+                    {% for er in form.non_field_errors %}
+                        <p class="text-danger">{{ er }}</p>
+                    {% endfor %}
+                {% endif %}
+
+                {% for fm in form %}                 
+                    <div class="text-white mb-3">
+                        {{ fm.label_tag }}
+                        {{ fm }}
+                        <p class="text-danger">{{ fm.errors|striptags }}</p>
+                    </div>
+                {% endfor %}
+                
+                <div class="text-center">
+                    <button class="btn-task btn-sm" type="submit">Enviar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<div style="margin: 100px">
+</div>
+{% endblock %}

@@ -1,0 +1,50 @@
+{% extends 'tareas.html' %}
+{% load crispy_forms_tags %}
+{% load static %}
+
+
+
+{% block content %}
+
+{% if messages %}
+{% for m in messages %}
+    <div {% if m.tags %} class="{{m.tags}}" {% endif %}><small >{{m}}</small></div>
+{% endfor %}
+{% endif %}
+
+<div class="container mt-5">
+    <div class="card mx-auto" style="width: 40rem; height: 15rem;" >
+        <div class="card" style="background-color: #4d4d53;">
+            <h2 class="text-center text-white">Registrese</h2>
+
+            <form action="" method="post" novalidate>
+                {% csrf_token %}
+
+                {% if form.non_field_errors %}
+                    {% for er in form.non_field_errors %}
+                        <p class="text-danger">{{ er }}</p>
+                    {% endfor %}
+                {% endif %}
+
+                {% for fm in form %}                
+                    <div class="mb-3 text-center">
+                        {{ fm.label_tag }}
+                        {{ fm }}
+                        <p class="text-danger">{{ fm.errors|striptags }}</p>
+                    </div>
+                {% endfor %}
+                
+                <div class="text-center">
+                    <button class="btn btn-primary" type="submit">Send</button>
+                </div>
+            </form>
+            <div class="text-center mt-3">
+            </small> <br>
+            <small class="fw-bold text-white">Ingrese sus datos</small> <a href="{% url 'signup' %}">SignUp</a>
+            </div>
+        </div>
+    </div>
+</div>
+<div style="margin: 200px">
+</div>
+{% endblock %}

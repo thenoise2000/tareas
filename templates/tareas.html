@@ -1,0 +1,228 @@
+{% load crispy_forms_tags %}
+{% load static %}
+<!doctype html>
+<html lang="es">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Sistema de Gestion de Tareas</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="{% static 'css/main.css' %}" />
+    <style>
+        body {
+            background-color: #080330; /* Fondo oscuro */
+            color: #ffffff; /* Color de texto */
+            font-family: 'Arial', sans-serif;
+        }
+        .navbar {
+            background-color: #1f1f1f; /* Color de la navbar */
+        }
+        .navbar-brand {
+            font-weight: bold;
+            color: #ffcc00; /* Color de la marca */
+        }
+        .navbar-nav .nav-link {
+            color: #ffffff;
+        }
+        .navbar-nav .nav-link:hover {
+            color: #ffcc00; /* Color de hover */
+        }
+        .notification {
+            position: relative;
+            color: #ffffff;
+            font-size: 18px;
+        }
+        .notification .badge {
+            position: absolute;
+            top: -6px;
+            right: -10px;
+            padding: 4px 8px;
+            border-radius: 50%;
+            background: #ff4081; /* Color de la insignia */
+            color: white;
+            font-size: 12px;
+        }
+        .dropdown-menu {
+            min-width: 300px;
+            background-color: #1f1f1f; /* Color de fondo del menú desplegable */
+        }
+        .dropdown-item {
+            padding: 10px 15px;
+            color: #ffffff; /* Color de texto del menú */
+        }
+        .dropdown-item:hover {
+            background-color: #3a3b4c; /* Color de hover en el menú */
+        }
+        .footer {
+            background-color: #1f1f1f;
+            color: #ffffff;
+            padding: 20px 0;
+            text-align: center;
+        }
+        .form {            
+            border-radius: 10px; /* Ajusta este valor para controlar el radio de las esquinas */
+            /* Otros estilos para el formulario */
+        }
+        .form-control {
+            background-color: #3a3b4c; /* Color de fondo del formulario */
+            border: 1px solid #4b4c5a; /* Borde del formulario */
+            color: #ffffff; /* Color de texto del formulario */
+            border-radius: 8px; /* Bordes redondeados */
+        }
+        .form-control:focus {
+            background-color: #4b4c5a; /* Color de fondo al enfocar el formulario */
+            border-color: #ffcc00; /* Color del borde al enfocar */
+            box-shadow: none; /* Sin sombra */
+        }
+        .btn {
+            background-color: #35ca17; /* Color de fondo de los botones */
+            color: #ffffff; /* Color de texto de los botones */
+            border-radius: 8px; /* Bordes redondeados */
+            padding: 10px 30px; /* Tamaño del botón */
+        }
+        .btn-edit {
+            background-color: #b8ca17; /* Color de fondo de los botones */
+            color: #ffffff; /* Color de texto de los botones */
+            border-radius: 8px; /* Bordes redondeados */
+            padding: 10px 30px; /* Tamaño del botón */
+        }
+        .btn-delete {
+            background-color: #d61414; /* Color de fondo de los botones */
+            color: #ffffff; /* Color de texto de los botones */
+            border-radius: 8px; /* Bordes redondeados */
+            padding: 10px 30px; /* Tamaño del botón */
+        }
+        .btn-task {
+            background-color: #2dad0d; /* Color de fondo de los botones */
+            color: #ffffff; /* Color de texto de los botones */
+            border-radius: 8px; /* Bordes redondeados */
+            padding: 10px 30px; /* Tamaño del botón */
+        }
+        .btn-search {
+            background-color: #61d6da; /* Color de fondo de los botones */
+            color: #ffffff; /* Color de texto de los botones */
+            border-radius: 8px; /* Bordes redondeados */
+            padding: 10px 30px; /* Tamaño del botón */
+        }
+        .btn-logout {
+            background-color: #d11919; /* Color de fondo de los botones */
+            color: #ffffff; /* Color de texto de los botones */
+            border-radius: 8px; /* Bordes redondeados */
+            padding: 10px 30px; /* Tamaño del botón */
+        }
+        .btn:hover {
+            background-color: #0a459e; 
+            color: #61d6da;
+        }
+        .btn-edit:hover {
+            background-color: #e6890f; 
+            color:#dd2b2b;
+        }
+        .btn-delete:hover {
+            background-color: #f81818; 
+            color:#d60909;
+        }
+        .btn-search:hover {
+            background-color: #132c99; 
+            color:#b8972d;
+        }
+        .btn-task:hover {
+            background-color: #1e9913; 
+            color:#1b34c0;
+        }
+        .card {
+            background-color: #1f1f1f; /* Color de fondo de las tarjetas */
+            border: none; /* Sin borde */
+            border-radius: 12px; /* Bordes redondeados */
+            transition: transform 0.3s; /* Animación al pasar el ratón */
+        }
+        .card:hover {
+            transform: scale(1.05); /* Efecto de escala al pasar el ratón */
+        }
+        .badge {
+            border-radius: 5px; /* Bordes redondeados para las insignias */
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #545474;">
+        <div class="container">
+            <a class="navbar-brand text-light" href="{% url 'index' %}">Sistema de Gestion de Tareas</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    {% if user.is_authenticated %}
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="{% url 'index' %}">Dashboard</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class=" btn-task nav-link" href="{% url 'create-task' %}">Nueva Tarea</a>
+                    </li>
+                    {% endif %}
+                </ul>
+                {% if user.is_authenticated %}
+                <form class="d-flex ms-auto" method="get" action="{% url 'task-search' %}">
+                    <input class="form-control me-2" type="search" name="title" placeholder="Buscar" aria-label="Search" required>
+                    <button class="btn-search" type="submit">Buscar</button>
+                </form>
+                
+                <a href="{% url 'logout' %}" class="btn-delete nav-link">Cerrar Sesion</a>
+                {% else %}
+                <a href="{% url 'signup' %}" class="btn btn-success mx-1">Registrarse</a>
+                <a href="{% url 'login' %}" class="btn btn-warning mx-1">Iniciar Sesión</a>
+                {% endif %}
+            </div>
+        </div>
+    </nav>
+    {% block content %}
+    <div class="container mt-4">
+        <div class="content">
+            <!-- Aquí va el contenido principal -->
+        </div>
+    </div>
+    {% endblock content %}
+    <footer class="footer">
+        <div class="container">
+            <p>Test Challenge</p>
+        </div>
+    </footer>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
+    <script>
+        // WebSocket y funcionalidad de notificaciones
+        const notificationSocket = new WebSocket('ws://' + window.location.host + '/ws/notification/');
+        notificationSocket.onopen = function(event) {
+            console.log('Conexión WebSocket abierta...');
+        };
+        notificationSocket.onmessage = function(event) {
+            const data = JSON.parse(event.data);
+            const newNotificationItem = document.createElement('li');
+            newNotificationItem.classList.add('dropdown-item', 'fw-bold');
+            newNotificationItem.innerHTML = 'Tarea: ' + data.task;
+            const newMessageItem = document.createElement('li');
+            newMessageItem.classList.add('dropdown-item');
+            newMessageItem.innerText = data.msg;
+            const newDivider = document.createElement('hr');
+            newDivider.classList.add('dropdown-divider');
+            const notificationsContainer = document.getElementById("notifications-dropdown");
+            const notificationsHeadline = notificationsContainer.querySelector('.dropdown-header');
+            const noNotificationText = document.getElementById("no-notifications");
+            if (noNotificationText) {
+                noNotificationText.remove();
+            }
+            notificationsContainer.insertBefore(newDivider, notificationsHeadline.nextSibling);
+            notificationsContainer.insertBefore(newMessageItem, notificationsHeadline.nextSibling);
+            notificationsContainer.insertBefore(newNotificationItem, notificationsHeadline.nextSibling);
+            document.getElementById("notification-badge").innerHTML = parseInt(document.getElementById("notification-badge").innerHTML) ? parseInt(document.getElementById("notification-badge").innerHTML) + 1 : 1;
+        };
+        notificationSocket.onclose = function(event) {
+            console.error('Conexión WebSocket cerrada inesperadamente', event);
+        };
+        document.getElementById('navbarDropdown').onclick = function(event) {
+            document.getElementById("notification-badge").innerText = null;
+        };
+    </script>
+</body>
+</html>
